@@ -59,6 +59,25 @@ functions:
       - httpApi:
           path: /naves/{id}
           method: get   
+  addSpecie:
+    handler: src/services/species/add-specie.addSpecie
+    events:
+      - httpApi:
+          path: /species
+          method: post
+  getAllSpecies:
+    handler: src/services/species/get-all-species.getAllSpecies
+    events:
+      - httpApi:
+          path: /species
+          method: get
+  getSpecie:
+    handler: src/services/species/get-specie.getSpecie
+    events:
+      - httpApi:
+          path: /species/{id}
+          method: get   
+
 
 resources:
   Resources:
