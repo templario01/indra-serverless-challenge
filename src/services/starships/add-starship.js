@@ -21,7 +21,7 @@ const validateRequest = async (input) => {
       velocidad_atmosferica_maxima: joi.string().required(),
       tripulacion: joi
         .string()
-        .regex(/^\d*\.?\d*$/)
+        .regex(/^[0-9]+$/)
         .required(),
       pasajeros: joi
         .string()
