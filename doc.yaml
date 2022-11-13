@@ -3,8 +3,10 @@
 openapi: 3.0.0
 info:
   title: SWAPI Serverless Node.js
-  description: REST API for Indra Company
-  version: 0.0.1
+  description: API Restful usando Serverless Framework
+  contact:
+    email: vict.benavente@gmail.com
+  version: 1.0.11
 servers:
   - url: https://ch5zkx5skh.execute-api.us-east-2.amazonaws.com/
     description: SWAPI Serverless Node.js
