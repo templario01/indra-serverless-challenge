@@ -41,6 +41,12 @@ functions:
       - httpApi:
           path: /personas/{id}
           method: get   
+  addStarship:
+    handler: src/services/starships/add-starship.addStarship
+    events:
+      - httpApi:
+          path: /naves
+          method: post
 
 resources:
   Resources:

@@ -164,7 +164,7 @@ paths:
                   type: array
       responses:
          "200":
-          description: "succesful operation"
+          description: "succesfull operation"
           content:
             application/json:
               schema:

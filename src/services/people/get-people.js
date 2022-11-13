@@ -43,29 +43,32 @@ const getPeopleFromDatabase = async (id) => {
 
 const getPeople = async (event) => {
   try {
+    let people;
     const { id } = event.pathParameters;
-    const isNumber = !!Number(id);
+    const idIsNumber = !!Number(id);
 
-    if (isNumber) {
-      const swapiPeople = await getPeopleFromSwapi(id);
+    if (idIsNumber) {
+      people = await getPeopleFromSwapi(id);
+    } else {
+      people = await getPeopleFromDatabase(id);
+    }
 
+    if (people) {
       return {
         statusCode: 200,
-        body: JSON.stringify({ status: 200, people: swapiPeople }),
+        body: JSON.stringify({ status: 200, result: people }),
       };
     }
-    const dbPeople = await getPeopleFromDatabase(id);
-
     return {
-      statusCode: 200,
-      body: JSON.stringify({ status: 200, people: dbPeople }),
+      statusCode: 404,
+      body: JSON.stringify({ status: 404, message: "Persona no encontrada" }),
     };
   } catch (error) {
     console.error(error);
 
     return {
       statusCode: 409,
-      body: JSON.stringify({ error: error.message }),
+      body: JSON.stringify({ status: 409, message: error.message }),
     };
   }
 };

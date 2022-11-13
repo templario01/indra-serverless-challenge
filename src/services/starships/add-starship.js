@@ -8,24 +8,41 @@ const validateRequest = async (input) => {
   try {
     const schema = joi.object({
       nombre: joi.string().required(),
-      altura: joi
+      modelo: joi.string().required(),
+      manufactura: joi.string().required(),
+      costo_en_creditos: joi
         .string()
         .regex(/^[0-9]+$/)
         .required(),
-      masa: joi
+      longitud: joi
         .string()
         .regex(/^[0-9]+$/)
         .required(),
-      color_cabello: joi.string().required(),
-      color_piel: joi.string().required(),
-      color_ojos: joi.string().required(),
-      nacimiento: joi.string().required(),
-      genero: joi.string().valid("masculino", "femenino").required(),
-      lugar_nacimiento: joi.string().required(),
+      velocidad_atmosferica_maxima: joi.string().required(),
+      tripulacion: joi
+        .string()
+        .regex(/^\d*\.?\d*$/)
+        .required(),
+      pasajeros: joi
+        .string()
+        .regex(/^[0-9]+$/)
+        .required(),
+      capacidad_de_carga: joi
+        .string()
+        .regex(/^[0-9]+$/)
+        .required(),
+      consumibles: joi.string().required(),
+      hiperimpulsor_calificacion: joi
+        .string()
+        .regex(/^\d*\.?\d*$/)
+        .required(),
+      mglt: joi
+        .string()
+        .regex(/^[0-9]+$/)
+        .required(),
+      clase: joi.string().required(),
+      pilotos: joi.array().optional(),
       peliculas: joi.array().optional(),
-      especies: joi.array().optional(),
-      vehiculos: joi.array().optional(),
-      naves: joi.array().optional(),
     });
     const validInput = await schema.validateAsync(input, { abortEarly: false });
 
@@ -37,30 +54,30 @@ const validateRequest = async (input) => {
   }
 };
 
-const createPeople = async (input, domain) => {
+const createStarship = async (input, domain) => {
   try {
     const dynamodb = new AWS.DynamoDB.DocumentClient();
     const createdAt = new Date().toISOString();
     const id = v4();
 
-    const newPeople = {
+    const newStarship = {
       id,
       fecha_actualizacion: createdAt,
       fecha_de_creacion: createdAt,
-      url: `https://${domain}/personas/${id}`,
+      url: `https://${domain}/naves/${id}`,
       ...input,
     };
 
     await dynamodb
       .put({
-        TableName: "Personas",
-        Item: newPeople,
+        TableName: "Naves",
+        Item: newStarship,
       })
       .promise();
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ status: 200, result: newPeople }),
+      body: JSON.stringify({ status: 200, result: newStarship }),
     };
   } catch (error) {
     console.error(error);
@@ -72,7 +89,7 @@ const createPeople = async (input, domain) => {
   }
 };
 
-const addPeople = async ({ body, headers }) => {
+const addStarship = async ({ body, headers }) => {
   const { isValid, result } = await validateRequest(body);
   if (!isValid) {
     return {
@@ -81,13 +98,13 @@ const addPeople = async ({ body, headers }) => {
     };
   }
 
-  const response = await createPeople(result, headers.host);
+  const response = await createStarship(result, headers.host);
 
   return response;
 };
 
 module.exports = {
-  addPeople: middy(addPeople).use(jsonBodyParser()),
+  addStarship: middy(addStarship).use(jsonBodyParser()),
   validateRequest,
-  createPeople,
+  createStarship,
 };

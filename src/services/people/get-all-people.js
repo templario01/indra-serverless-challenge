@@ -15,14 +15,14 @@ const getAllPeople = async (event) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ status: 200, personas: people }),
+      body: JSON.stringify({ status: 200, result: people }),
     };
   } catch (error) {
     console.error(error);
 
     return {
       statusCode: 409,
-      body: JSON.stringify({ status: 409, error: error.message }),
+      body: JSON.stringify({ status: 409, message: error.message }),
     };
   }
 };
