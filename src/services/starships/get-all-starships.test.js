@@ -1,14 +1,14 @@
 /* eslint-disable no-undef */
-const { getAllPeople } = require("./get-all-people");
+const { getAllStarships } = require("./get-all-starships");
 const { eventBody } = require("../../shared/mocks/mock-event");
-const { allPeopleResponse } = require("../../shared/mocks/mock-people");
+const { allStarshipsResponse } = require("../../shared/mocks/mock-starship");
 
 const mockDocumentClientInstance = jest
   .fn()
   .mockImplementationOnce(() => {
     return {
       promise() {
-        return Promise.resolve({ Items: allPeopleResponse });
+        return Promise.resolve({ Items: allStarshipsResponse });
       },
     };
   })
@@ -26,7 +26,7 @@ jest.mock("aws-sdk", () => {
   };
 });
 
-describe("get-all-people", () => {
+describe("get-all-starships", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
@@ -35,9 +35,9 @@ describe("get-all-people", () => {
     jest.clearAllMocks();
   });
 
-  describe("getAllPeople", () => {
+  describe("getAllStarships", () => {
     it("should return status 200 and array of people if AWS works with normality", async () => {
-      const result = await getAllPeople(eventBody);
+      const result = await getAllStarships(eventBody);
 
       expect(result).toMatchObject({
         statusCode: 200,
@@ -46,7 +46,7 @@ describe("get-all-people", () => {
     });
 
     it("should return status 409 and error message if success any error with AWS", async () => {
-      const result = await getAllPeople(eventBody);
+      const result = await getAllStarships(eventBody);
 
       expect(result).toMatchObject({
         statusCode: 409,

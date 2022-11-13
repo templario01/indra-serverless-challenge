@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
-const { validateRequest, createPeople } = require("./add-people");
+const { validateRequest, createStarship } = require("./add-starship");
 const { faker } = require("@faker-js/faker");
 const {
-  people,
-  peopleBadBody,
-  peopleIncompleteBody,
-} = require("../../shared/mocks/mock-people");
+  starship,
+  starshipBadBody,
+  starshipIncompleteBody,
+} = require("../../shared/mocks/mock-starship");
 
 const mockDocumentClientInstance = jest
   .fn()
@@ -30,7 +30,7 @@ jest.mock("aws-sdk", () => {
   };
 });
 
-describe("add-people", () => {
+describe("add-starship", () => {
   beforeEach(() => {
     jest.spyOn(console, "error").mockImplementation(() => {});
   });
@@ -41,16 +41,16 @@ describe("add-people", () => {
 
   describe("validateRequest", () => {
     it("should return the same object and property isValid as true if all fields are correct", async () => {
-      const result = await validateRequest(people);
+      const result = await validateRequest(starship);
 
       expect(result).toMatchObject({
         isValid: true,
-        result: people,
+        result: starship,
       });
     });
 
     it("should return isValid as false and error message in result if some field is invalid", async () => {
-      const result = await validateRequest(peopleBadBody);
+      const result = await validateRequest(starshipBadBody);
 
       expect(result).toMatchObject({
         isValid: false,
@@ -59,7 +59,7 @@ describe("add-people", () => {
     });
 
     it("should return isValid as false and error message in result if are missing fields", async () => {
-      const result = await validateRequest(peopleIncompleteBody);
+      const result = await validateRequest(starshipIncompleteBody);
 
       expect(result).toMatchObject({
         isValid: false,
@@ -68,9 +68,9 @@ describe("add-people", () => {
     });
   });
 
-  describe("createPeople", () => {
-    it("should return status 200 and create a new people if AWS works with normality", async () => {
-      const result = await createPeople(people, faker.internet.domainName());
+  describe("createStarship", () => {
+    it("should return status 200 and create a new starship if AWS works with normality", async () => {
+      const result = await createStarship(starship, faker.internet.domainName());
 
       expect(result).toMatchObject({
         statusCode: 200,
@@ -79,7 +79,7 @@ describe("add-people", () => {
     });
 
     it("should return status 409 and error message if success any error with AWS", async () => {
-      const result = await createPeople(
+      const result = await createStarship(
         JSON.parse(faker.datatype.json()),
         faker.internet.domainName()
       );
