@@ -1,0 +1,210 @@
+#Open API Specification
+
+openapi: 3.0.0
+info:
+  title: SWAPI Serverless Node.js
+  description: REST API for Indra Company
+  version: 0.0.1
+servers:
+  - url: https://ch5zkx5skh.execute-api.us-east-2.amazonaws.com/
+    description: SWAPI Serverless Node.js
+
+# components
+components:
+  schemas:
+    ResponsePeople:
+      type : object
+      required:
+      - nombre
+      - color_cabello
+      - nacimiento
+      - masa
+      - lugar_nacimiento
+      - altura
+      - fecha_de_creacion
+      - url
+      - fecha_actualizacion
+      - color_piel
+      - id
+      - color_ojos
+      - genero
+      - peliculas
+      - especies
+      - vehiculos
+      - naves
+      properties:
+        nombre:
+          type: string
+        color_cabello:
+          type: string
+        nacimiento:
+          type: string
+        masa:
+          type: string
+        lugar_nacimiento:
+          type: string
+        altura:
+          type: string
+        fecha_de_creacion:
+          type: string
+        url:
+          type: string
+        fecha_actualizacion:
+          type: string
+        color_piel:
+          type: string
+        color_ojos:
+          type: string
+        genero:
+          type: string
+        peliculas:
+          type: array
+        especies:
+          type: array
+        vehiculos:
+          type: array
+        naves:
+          type: array
+
+
+    ErrorNotFound:
+      type: object
+      description: Error Resource not found
+      required:
+      - message
+      - status
+      properties:
+        message:
+          default: "not found"
+        status:
+          default: 404
+
+paths:
+  /personas:
+    get:
+      tags:
+        - "Personas"
+      summary: Retorna una lista de personas
+
+      responses:
+        "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - personas
+                properties:
+                  data:
+                    type: array
+                    description: Array de personas
+                    items:
+                      $ref: '#/components/schemas/ResponsePeople'
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+    post:
+      tags:
+        - "Personas"
+      summary: Crear nueva persona
+      requestBody:
+        description: Nueva persona a ser creada
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - nombre
+              - color_cabello
+              - nacimiento
+              - masa
+              - lugar_nacimiento
+              - altura
+              - color_piel
+              - id
+              - color_ojos
+              - genero
+              - peliculas
+              - especies
+              - vehiculos
+              - naves
+              properties:
+                nombre:
+                  type: string
+                color_cabello:
+                  type: string
+                nacimiento:
+                  type: string
+                masa:
+                  type: string
+                lugar_nacimiento:
+                  type: string
+                altura:
+                  type: string
+                color_piel:
+                  type: string
+                id:
+                  type: string
+                color_ojos:
+                  type: string
+                genero:
+                  type: string
+                peliculas:
+                  type: array
+                especies:
+                  type: array
+                vehiculos:
+                  type: array
+                naves:
+                  type: array
+      responses:
+         "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResponsePeople'
+
+  /personas/{id}:
+    get:
+      tags:
+        - "Personas"
+      summary: Retorna una persona
+
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: identificador alfanumerico
+
+      responses:
+        "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - persona
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResponsePeople'
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+   

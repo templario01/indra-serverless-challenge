@@ -5,14 +5,42 @@ provider:
   name: aws
   runtime: nodejs14.x
   region: us-east-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-2:020503494232:table/Especies
+        - arn:aws:dynamodb:us-east-2:020503494232:table/Naves
+        - arn:aws:dynamodb:us-east-2:020503494232:table/Peliculas
+        - arn:aws:dynamodb:us-east-2:020503494232:table/Personas
+        - arn:aws:dynamodb:us-east-2:020503494232:table/Vehiculos
 
 functions:
   hello:
-    handler: src/hello.hello
+    handler: src/status.status
     events:
       - httpApi:
           path: /
           method: get
+  addPeople:
+    handler: src/services/people/add-people.addPeople
+    events:
+      - httpApi:
+          path: /personas
+          method: post
+  getAllPeople:
+    handler: src/services/people/get-all-people.getAllPeople
+    events:
+      - httpApi:
+          path: /personas
+          method: get
+  getPeople:
+    handler: src/services/people/get-people.getPeople
+    events:
+      - httpApi:
+          path: /personas/{id}
+          method: get   
 
 resources:
   Resources:

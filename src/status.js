@@ -1,12 +1,13 @@
 "use strict";
 
-module.exports.hello = async (event) => {
-    const currentDate = new Date() 
+module.exports.status = async (event) => {
+  const currentDate = new Date();
+
   return {
     statusCode: 200,
     body: JSON.stringify(
       {
-        message: "hello world!!",
+        message: `healthly check, time: ${currentDate}`,
         input: event,
       },
       null,
