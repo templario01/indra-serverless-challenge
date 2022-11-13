@@ -128,6 +128,59 @@ components:
         peliculas:
           type: array
 
+    ResponseSpecie:
+      type : object
+      required:
+      - id
+      - fecha_de_creacion
+      - url
+      - fecha_actualizacion
+      - nombre
+      - clasificacion
+      - designacion
+      - altura
+      - color_de_piel
+      - color_de_cabello
+      - color_de_ojos
+      - esperanza_de_vida
+      - lugar_nacimiento
+      - lenguaje
+      - personas
+      - peliculas
+
+      properties:
+        id:
+          type: string
+        fecha_de_creacion:
+          type: string
+        url:
+          type: string
+        fecha_actualizacion:
+          type: string
+        nombre:
+          type: string
+        clasificacion:
+          type: string
+        designacion:
+          type: string
+        altura:
+          type: string
+        color_de_piel:
+          type: string
+        color_de_cabello:
+          type: string
+        color_de_ojos:
+          type: string
+        esperanza_de_vida:
+          type: string
+        lugar_nacimiento:
+          type: string
+        lenguaje:
+          type: string
+        personas:
+          type: array
+        peliculas:
+          type: array
 
     ErrorNotFound:
       type: object
@@ -395,6 +448,128 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/ResponseStarship'
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+# especies
+  /especies:
+    get:
+      tags:
+        - "Especies"
+      summary: Retorna una lista de especies
+
+      responses:
+        "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - especies
+                properties:
+                  data:
+                    type: array
+                    description: Array de especies
+                    items:
+                      $ref: '#/components/schemas/ResponseSpecie'
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+    post:
+      tags:
+        - "Especies"
+      summary: Crear nueva especie
+      requestBody:
+        description: Nueva especie a ser creada
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - nombre
+              - clasificacion
+              - designacion
+              - altura
+              - color_de_piel
+              - color_de_cabello
+              - color_de_ojos
+              - esperanza_de_vida
+              - lugar_nacimiento
+              - lenguaje
+              - personas
+              - peliculas
+              properties:
+                nombre:
+                  type: string
+                clasificacion:
+                  type: string
+                designacion:
+                  type: string
+                altura:
+                  type: string
+                color_de_piel:
+                  type: string
+                color_de_cabello:
+                  type: string
+                color_de_ojos:
+                  type: string
+                esperanza_de_vida:
+                  type: string
+                lugar_nacimiento:
+                  type: string
+                lenguaje:
+                  type: string
+                personas:
+                  type: array
+                peliculas:
+                  type: array
+      responses:
+         "200":
+          description: "succesfull operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResponseSpecie'
+
+  /especies/{id}:
+    get:
+      tags:
+        - "Especies"
+      summary: Retorna una especie
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: identificador alfanumerico
+
+      responses:
+        "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - especie
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResponseSpecie'
         "404":
           description: "not found"
           content:

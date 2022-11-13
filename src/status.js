@@ -6,7 +6,7 @@ module.exports.status = async ({ requestContext }) => {
     body: JSON.stringify({
       message: `healthly check`,
       documentation:
-        "https://app.swaggerhub.com/apis-docs/templario01/serverless/1.0",
+        "https://app.swaggerhub.com/apis-docs/templario01/serverless/0.0.1",
       info: requestContext,
     }),
   };
