@@ -1,9 +1,8 @@
 const AWS = require("aws-sdk");
-const SWAPI_STARSHIPS_URL = "https://swapi.py4e.com/api/starships";
-const { getData } = require("../../shared/utils/utils.js");
+const { getData, SWAPI_URL } = require("../../shared/utils/utils.js");
 
 const getStarshipFromSwapi = async (id) => {
-  const { data } = await getData(`${SWAPI_STARSHIPS_URL}/${id}`);
+  const { data } = await getData(`${SWAPI_URL}/starships/${id}`);
   const starship = {
     nombre: data.name,
     modelo: data.model,
@@ -32,7 +31,7 @@ const getStarshipFromDatabase = async (id) => {
   const dynamodb = new AWS.DynamoDB.DocumentClient();
   const result = await dynamodb
     .get({
-      TableName: "starships",
+      TableName: "Naves",
       Key: {
         id,
       },
@@ -50,7 +49,7 @@ const getStarship = async (event) => {
     const idIsNumber = !!Number(id);
 
     if (idIsNumber) {
-      starship = await getStarshipFromDatabase(id);
+      starship = await getStarshipFromSwapi(id);
     } else {
       starship = await getStarshipFromDatabase(id);
     }
@@ -63,7 +62,7 @@ const getStarship = async (event) => {
     }
     return {
       statusCode: 404,
-      body: JSON.stringify({ status: 404, message: "starship no encontrada" }),
+      body: JSON.stringify({ status: 404, message: "nave no encontrada" }),
     };
   } catch (error) {
     console.error(error);

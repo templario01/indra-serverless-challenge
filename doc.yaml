@@ -65,6 +65,68 @@ components:
           type: array
         naves:
           type: array
+  
+    ResponseStarship:
+      type : object
+      required:
+      - nombre
+      - modelo
+      - manufactura
+      - costo_en_creditos
+      - longitud
+      - velocidad_atmosferica_maxima
+      - fecha_de_creacion
+      - url
+      - fecha_actualizacion
+      - tripulacion
+      - id
+      - pasajeros
+      - capacidad_de_carga
+      - consumibles
+      - hiperimpulsor_calificacion
+      - mglt
+      - clase
+      - pilotos
+      - peliculas
+      properties:
+        nombre:
+          type: string
+        modelo:
+          type: string
+        manufactura:
+          type: string
+        costo_en_creditos:
+          type: string
+        longitud:
+          type: string
+        velocidad_atmosferica_maxima:
+          type: string
+        fecha_de_creacion:
+          type: string
+        url:
+          type: string
+        fecha_actualizacion:
+          type: string
+        tripulacion:
+          type: string
+        id:
+          type: string
+        pasajeros:
+          type: string
+        capacidad_de_carga:
+          type: string
+        consumibles:
+          type: string
+        hiperimpulsor_calificacion:
+          type: string
+        mglt:
+          type: string
+        clase:
+          type: string
+        pilotos:
+          type: array
+        peliculas:
+          type: array
 
 
     ErrorNotFound:
@@ -80,6 +142,7 @@ components:
           default: 404
 
 paths:
+#personas
   /personas:
     get:
       tags:
@@ -170,7 +233,7 @@ paths:
               schema:
                 type: object
                 required:
-                - data
+                - nave
                 properties:
                   data:
                     $ref: '#/components/schemas/ResponsePeople'
@@ -185,7 +248,7 @@ paths:
       - in: path
         name: id
         schema:
-          type: integer
+          type: string
         required: true
         description: identificador alfanumerico
 
@@ -201,6 +264,137 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/ResponsePeople'
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+   
+# naves
+  /naves:
+    get:
+      tags:
+        - "Naves"
+      summary: Retorna una lista de naves
+
+      responses:
+        "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - naves
+                properties:
+                  data:
+                    type: array
+                    description: Array de naves
+                    items:
+                      $ref: '#/components/schemas/ResponseStarship'
+        "404":
+          description: "not found"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+
+    post:
+      tags:
+        - "Naves"
+      summary: Crear nueva nave
+      requestBody:
+        description: Nueva nave a ser creada
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+              - nombre
+              - modelo
+              - manufactura
+              - costo_en_creditos
+              - longitud
+              - velocidad_atmosferica_maxima
+              - tripulacion
+              - pasajeros
+              - capacidad_de_carga
+              - consumibles
+              - hiperimpulsor_calificacion
+              - mglt
+              - clase
+              - pilotos
+              - peliculas
+              properties:
+                nombre:
+                  type: string
+                modelo:
+                  type: string
+                manufactura:
+                  type: string
+                costo_en_creditos:
+                  type: string
+                longitud:
+                  type: string
+                velocidad_atmosferica_maxima:
+                  type: string
+                tripulacion:
+                  type: string
+                pasajeros:
+                  type: string
+                capacidad_de_carga:
+                  type: string
+                consumibles:
+                  type: string
+                hiperimpulsor_calificacion:
+                  type: string
+                mglt:
+                  type: string
+                clase:
+                  type: string
+                pilotos:
+                  type: array
+                peliculas:
+                  type: array
+      responses:
+         "200":
+          description: "succesfull operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResponseStarship'
+
+  /naves/{id}:
+    get:
+      tags:
+        - "Naves"
+      summary: Retorna una nave
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: identificador alfanumerico
+
+      responses:
+        "200":
+          description: "succesful operation"
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - nave
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResponseStarship'
         "404":
           description: "not found"
           content:

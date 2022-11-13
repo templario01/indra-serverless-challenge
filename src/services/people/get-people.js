@@ -1,9 +1,8 @@
 const AWS = require("aws-sdk");
-const SWAPI_PEOPLE_URL = "https://swapi.py4e.com/api/people";
-const { getData } = require("../../shared/utils/utils.js");
+const { getData, SWAPI_URL } = require("../../shared/utils/utils.js");
 
 const getPeopleFromSwapi = async (id) => {
-  const { data } = await getData(`${SWAPI_PEOPLE_URL}/${id}`);
+  const { data } = await getData(`${SWAPI_URL}/people/${id}`);
   const people = {
     nombre: data.name,
     altura: data.height,

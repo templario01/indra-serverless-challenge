@@ -47,6 +47,18 @@ functions:
       - httpApi:
           path: /naves
           method: post
+  getAllStarships:
+    handler: src/services/starships/get-all-starships.getAllStarships
+    events:
+      - httpApi:
+          path: /naves
+          method: get
+  getStarship:
+    handler: src/services/starships/get-starship.getStarship
+    events:
+      - httpApi:
+          path: /naves/{id}
+          method: get   
 
 resources:
   Resources:
