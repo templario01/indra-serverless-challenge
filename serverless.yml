@@ -12,9 +12,7 @@ provider:
       Resource:
         - arn:aws:dynamodb:us-east-2:020503494232:table/Especies
         - arn:aws:dynamodb:us-east-2:020503494232:table/Naves
-        - arn:aws:dynamodb:us-east-2:020503494232:table/Peliculas
         - arn:aws:dynamodb:us-east-2:020503494232:table/Personas
-        - arn:aws:dynamodb:us-east-2:020503494232:table/Vehiculos
 
 functions:
   hello:
@@ -92,17 +90,6 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-    Peliculas:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: Peliculas
-        BillingMode: PAY_PER_REQUEST
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
     Especies:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -125,14 +112,4 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-    Vehiculos:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: Vehiculos
-        BillingMode: PAY_PER_REQUEST
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
+   
