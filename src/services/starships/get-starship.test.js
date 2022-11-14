@@ -52,7 +52,7 @@ describe("get-starship", () => {
   });
 
   describe("getStarship", () => {
-    it("should return status 200 and starships array of SWAPI with number id", async () => {
+    it("should return status 200 and get starship from SWAPI if set number id", async () => {
       const request = {
         ...eventBody,
         pathParameters: {
@@ -84,7 +84,7 @@ describe("get-starship", () => {
       expect(axios.get).toHaveBeenCalledTimes(1);
     });
 
-    it("should return status 200 and starships array of DynamoBD with hash id", async () => {
+    it("should return status 200 and get specie from DynamoDB if set number id", async () => {
       const request = {
         ...eventBody,
         pathParameters: {
