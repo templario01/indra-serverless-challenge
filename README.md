@@ -4,14 +4,14 @@ API URL: https://ch5zkx5skh.execute-api.us-east-2.amazonaws.com
 Documentacion: https://app.swaggerhub.com/apis-docs/templario01/serverless/0.0.1
 ### Arquitectura
 
-|__ src
-&nbsp;&nbsp;&nbsp;&nbsp;|__ services
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ people
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ species
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ starships
-&nbsp;&nbsp;&nbsp;&nbsp;|__ shared
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ mocks
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ utils
+|__ src<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;|__ services<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ people<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ species<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ starships<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;|__ shared<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ mocks<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|__ utils<br/>
 
 ### Tests
 ##### Dependencias
